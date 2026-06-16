@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StudyLog 关于我页面，包含个人简介、技术栈、项目方向、联系方式和本地留言板。">
+  <title>关于我｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="about">
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-hero" data-animate>
+      <span class="kicker">About Me</span>
+      <h1 class="section-title">把项目经验，整理成持续成长的记录。</h1>
+      <p class="section-lead">我正在学习全栈开发，关注前端体验、后端服务和 AI 应用结合。StudyLog 用来整理技术文章、课程作品和个人项目进展。</p>
+    </section>
+
+    <section class="section-tight about-layout">
+      <aside class="card" data-animate>
+        <div class="card-body">
+          <div class="avatar-wrap">
+            <img src="assets/images/avatar.svg" alt="个人头像插画" width="220" height="220">
+          </div>
+          <h2 class="card-title">李卓斌 / LI</h2>
+          <p class="card-text">Web 与全栈开发学习者，正在实践 Spring Boot、微服务、搜索引擎、向量数据库与前端页面交互。目标是把项目做得可用、清晰且便于持续迭代。</p>
+          <ul class="contact-list" aria-label="联系方式">
+            <li><a href="mailto:lizhuobin3@qq.com"><span>Email</span><strong>lizhuobin3@qq.com</strong></a></li>
+            <li><a href="https://github.com/" target="_blank" rel="noreferrer"><span>GitHub</span><strong>@de1ay-no-more</strong></a></li>
+            <li><a href="projects.html"><span>Projects</span><strong>3 个项目</strong></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="grid" style="gap: 24px;">
+        <section class="card" data-animate aria-labelledby="skill-title">
+          <div class="card-body">
+            <span class="kicker">Skills</span>
+            <h2 class="card-title" id="skill-title">技术栈进度</h2>
+            <p class="card-text">结合 StudyLog、Vista-AI 新闻聚合和视频分享系统，整理当前主要学习与实践方向。</p>
+            <div class="skill-list" id="skillList"></div>
+          </div>
+        </section>
+
+        <section class="card" data-animate aria-labelledby="guestbook-title">
+          <div class="card-body">
+            <span class="kicker">Guestbook</span>
+            <h2 class="card-title" id="guestbook-title">给我留言</h2>
+            <p class="card-text">留言会保存在当前浏览器的 localStorage 中，不会上传到服务器。</p>
+            <form class="form-grid" id="guestbookForm" novalidate>
+              <div class="form-group">
+                <label for="nickname">昵称</label>
+                <input class="form-input" id="nickname" name="nickname" type="text" maxlength="20" placeholder="请输入 2-20 个字符">
+                <p class="form-error" data-error="nickname" aria-live="polite"></p>
+              </div>
+              <div class="form-group">
+                <label for="message">留言内容</label>
+                <textarea class="form-textarea" id="message" name="message" maxlength="200" placeholder="写下你的建议或想法"></textarea>
+                <p class="form-error" data-error="message" aria-live="polite"></p>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <button class="btn" type="submit">提交留言</button>
+                <button class="btn btn-ghost" id="clearMessages" type="button">清空留言</button>
+              </div>
+            </form>
+            <div class="guestbook-list" id="guestbookList" aria-live="polite"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="index.html">首页</a><a href="blog.html">文章</a><a href="projects.html">项目</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

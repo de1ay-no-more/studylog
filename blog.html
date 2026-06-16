@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="博客列表，支持分类筛选、关键词搜索和日期排序。">
+  <title>博客文章｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="blog">
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-hero" data-animate>
+      <span class="kicker">Blog Archive</span>
+      <h1 class="section-title">技术文章列表</h1>
+      <p class="section-lead">所有文章以独立 HTML 详情页呈现；列表页负责分类筛选、关键词搜索和日期排序。</p>
+    </section>
+
+    <section class="section-tight" aria-labelledby="filter-title" data-animate>
+      <h2 id="filter-title" class="mono" style="font-size: 1rem; color: var(--muted);">筛选与搜索</h2>
+      <div class="toolbar">
+        <label>
+          <span class="mono" style="display:block; margin-bottom: 8px; color: var(--muted);">关键词</span>
+          <input class="search-input" id="blogSearch" type="search" placeholder="搜索标题、摘要或标签，例如 JavaScript">
+        </label>
+        <label>
+          <span class="mono" style="display:block; margin-bottom: 8px; color: var(--muted);">日期排序</span>
+          <select class="select-input" id="sortSelect">
+            <option value="desc">日期降序</option>
+            <option value="asc">日期升序</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-row" id="categoryFilters" aria-label="文章分类筛选"></div>
+      <p id="resultCount" class="meta-row" aria-live="polite"></p>
+      <div class="grid grid-2" id="articleList" style="margin-top: 22px;"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="index.html">首页</a><a href="projects.html">项目</a><a href="about.html">关于我</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

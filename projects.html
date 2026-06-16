@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StudyLog 项目展示页，展示前端课程作品、响应式页面和 JavaScript 小工具。">
+  <title>项目展示｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="projects">
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-hero" data-animate>
+      <span class="kicker">Portfolio</span>
+      <h1 class="section-title">项目与练习</h1>
+      <p class="section-lead">这里整理了我的个人项目与课程作品，包含 AI 新闻聚合、视频分享系统和当前博客站点。项目卡片由 JavaScript 数据统一渲染，方便后续补充链接与更新进展。</p>
+    </section>
+
+    <section class="section-tight" aria-labelledby="project-title" data-animate>
+      <h2 id="project-title" class="mono" style="font-size: 1rem; color: var(--muted);">项目卡片</h2>
+      <div class="grid grid-3" id="projectGrid" style="margin-top: 22px;"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="index.html">首页</a><a href="blog.html">文章</a><a href="about.html">联系</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

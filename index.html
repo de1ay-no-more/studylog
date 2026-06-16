@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="该项目是一个暗黑极简风格的个人技术博客，记录前端学习、网页交互与课程项目。">
+  <title>个人技术博客</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div data-animate>
+          <span class="kicker">Personal Tech Blog</span>
+          <h1 class="hero-title">写代码，<br><span class="muted-word">也写思考。</span></h1>
+          <p class="typewriter" id="typewriter" aria-live="polite"></p>
+          <p class="section-lead">你好，我是李卓斌，一名正在学习全栈开发的学生。这个网站用于记录前端学习笔记，也展示个人项目、课程作品与网页交互实验。</p>
+          <div class="hero-actions">
+            <a class="btn" href="blog.html">阅读技术文章</a>
+            <a class="btn btn-ghost" href="about.html">了解我</a>
+          </div>
+        </div>
+
+        <aside class="card hero-panel" data-animate>
+          <div class="avatar-wrap">
+            <img src="assets/images/avatar.svg" alt="林川的头像插画" width="260" height="260">
+          </div>
+          <ul class="profile-list">
+            <li><span>昵称</span><strong>LI</strong></li>
+            <li><span>方向</span><strong>全栈开发</strong></li>
+            <li><span>关键词</span><strong>Spring Boot · Vue · AI</strong></li>
+          </ul>
+          <div class="stats-strip" aria-label="网站统计">
+            <div class="stat-box"><strong>5</strong><span>技术文章</span></div>
+            <div class="stat-box"><strong>3</strong><span>项目展示</span></div>
+            <div class="stat-box"><strong>1</strong><span>在线预览</span></div>
+          </div>
+          <p class="deploy-note">部分项目暂未部署上线，后续会补充在线预览或仓库链接。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="latest-title">
+      <div class="container">
+        <span class="kicker">Latest Posts</span>
+        <h2 class="section-title" id="latest-title">最新 3 篇博客</h2>
+        <p class="section-lead">从语义化结构到浏览器本地存储，记录每一次把知识变成页面的过程。</p>
+        <div class="grid grid-3" id="latestPosts" style="margin-top: 30px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="blog.html">文章</a><a href="projects.html">项目</a><a href="about.html">联系</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

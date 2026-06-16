@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="深色主题设计实践：不只是把背景变黑 - StudyLog 技术博客文章。">
+  <title>深色主题设计实践：不只是把背景变黑｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="post" data-article-id="dark-theme">
+  <div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="../index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="../index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="../blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="../projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="../about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="article-shell">
+    <article>
+      <header class="article-header" data-animate>
+        <a class="btn btn-ghost" href="../blog.html">← 返回文章列表</a>
+        <h1 class="article-title">深色主题设计实践：不只是把背景变黑</h1>
+        <div class="meta-row">
+          <span>2026年4月30日</span><span>·</span><span>CSS</span><span>·</span><span id="readingTime">预计阅读时间</span>
+        </div>
+        <div class="meta-row" style="margin-top: 14px;"><span class="tag">暗黑模式</span><span class="tag">CSS 变量</span><span class="tag">视觉设计</span></div>
+      </header>
+      <div class="article-body" data-animate>
+
+        <p>深色主题并不是简单地把背景设置为纯黑、文字设置为纯白。真正舒适的暗黑界面需要层级、对比、留白和状态反馈。</p>
+        <h2>使用 CSS 变量管理主题</h2>
+        <p>本网站把背景、卡片、文字、边框、强调色等抽象为 CSS 变量，再通过给 <code>body</code> 添加 <code>light-theme</code> 类实现主题切换。</p>
+        <pre><code>:root {
+  --bg: #050505;
+  --surface: #101010;
+  --text: #f4f4f5;
+}</code></pre>
+        <h2>暗黑界面的层级</h2>
+        <p>深色页面中，卡片不应该和背景完全融为一体。可以通过略亮的 surface、细边框和轻微阴影建立层级。</p>
+        <h2>交互细节</h2>
+        <ul>
+          <li>hover 不宜过度放大，轻微上浮即可。</li>
+          <li>focus 状态必须清晰，方便键盘用户使用。</li>
+          <li>浅色主题下不能使用过低透明度的文字。</li>
+        </ul>
+        <p>好的深色主题应该让内容更突出，而不是让用户努力寻找内容。</p>
+
+      </div>
+    </article>
+    <nav class="article-nav" aria-label="文章导航">
+      <a class="btn btn-ghost" href="../blog.html">返回博客列表</a>
+      <a class="btn" href="../about.html#guestbook-title">读完后留言</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="../blog.html">返回博客</a><a href="../projects.html">项目</a><a href="../about.html">联系</a></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CSS Flex 与 Grid：什么时候该用哪一个？ - StudyLog 技术博客文章。">
+  <title>CSS Flex 与 Grid：什么时候该用哪一个？｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="post" data-article-id="css-grid-flex">
+  <div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="../index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="../index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="../blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="../projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="../about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="article-shell">
+    <article>
+      <header class="article-header" data-animate>
+        <a class="btn btn-ghost" href="../blog.html">← 返回文章列表</a>
+        <h1 class="article-title">CSS Flex 与 Grid：什么时候该用哪一个？</h1>
+        <div class="meta-row">
+          <span>2026年5月26日</span><span>·</span><span>CSS</span><span>·</span><span id="readingTime">预计阅读时间</span>
+        </div>
+        <div class="meta-row" style="margin-top: 14px;"><span class="tag">CSS3</span><span class="tag">Flex</span><span class="tag">Grid</span><span class="tag">响应式</span></div>
+      </header>
+      <div class="article-body" data-animate>
+
+        <p>Flex 和 Grid 都是现代 CSS 布局的核心工具。它们并不是互相替代的关系，而是分别擅长不同维度的布局问题。</p>
+        <h2>Flex：适合一维布局</h2>
+        <p>当元素主要沿着一个方向排列时，Flex 更直接。例如导航菜单、按钮组、卡片内部的图文排列都适合使用 Flex。</p>
+        <pre><code>.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}</code></pre>
+        <h2>Grid：适合二维布局</h2>
+        <p>当布局同时涉及行和列时，Grid 更稳定。例如项目展示页、博客卡片列表、仪表盘模块都适合使用 Grid。</p>
+        <pre><code>.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}</code></pre>
+        <h2>选择方法</h2>
+        <ul>
+          <li>只关心横向或纵向排列：优先 Flex。</li>
+          <li>需要控制多列、多行和整体网格：优先 Grid。</li>
+          <li>实际项目中两者可以组合使用：外层 Grid，内层 Flex。</li>
+        </ul>
+        <p>本网站项目页使用 Grid 控制整体卡片布局，卡片内部的标签行则用 Flex 自动换行。</p>
+
+      </div>
+    </article>
+    <nav class="article-nav" aria-label="文章导航">
+      <a class="btn btn-ghost" href="../blog.html">返回博客列表</a>
+      <a class="btn" href="../about.html#guestbook-title">读完后留言</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="../blog.html">返回博客</a><a href="../projects.html">项目</a><a href="../about.html">联系</a></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

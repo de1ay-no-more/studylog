@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="使用 localStorage 实现前端数据持久化 - StudyLog 技术博客文章。">
+  <title>使用 localStorage 实现前端数据持久化｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="post" data-article-id="js-localstorage">
+  <div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="../index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="../index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="../blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="../projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="../about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="article-shell">
+    <article>
+      <header class="article-header" data-animate>
+        <a class="btn btn-ghost" href="../blog.html">← 返回文章列表</a>
+        <h1 class="article-title">使用 localStorage 实现前端数据持久化</h1>
+        <div class="meta-row">
+          <span>2026年5月18日</span><span>·</span><span>JavaScript</span><span>·</span><span id="readingTime">预计阅读时间</span>
+        </div>
+        <div class="meta-row" style="margin-top: 14px;"><span class="tag">JavaScript</span><span class="tag">localStorage</span><span class="tag">表单验证</span></div>
+      </header>
+      <div class="article-body" data-animate>
+
+        <p>没有后端时，浏览器端仍然可以使用 <code>localStorage</code> 保存少量数据。本项目的留言板就是一个典型示例：用户提交昵称和留言后，即使刷新页面，留言仍然可见。</p>
+        <h2>localStorage 的基本用法</h2>
+        <pre><code>localStorage.setItem("key", "value");
+const value = localStorage.getItem("key");</code></pre>
+        <p>因为 localStorage 只能保存字符串，所以数组或对象需要先用 <code>JSON.stringify</code> 转换，读取时再用 <code>JSON.parse</code> 还原。</p>
+        <h2>留言板实现思路</h2>
+        <ol>
+          <li>页面加载时读取本地留言数组。</li>
+          <li>提交表单前检查昵称和留言是否为空、长度是否合理。</li>
+          <li>通过 <code>unshift</code> 把新留言放到数组最前面。</li>
+          <li>保存到 localStorage 并重新渲染留言列表。</li>
+        </ol>
+        <h2>安全渲染</h2>
+        <p>用户输入不能直接拼接为 HTML，否则可能出现脚本注入问题。这个项目中使用 <code>escapeHTML()</code> 将特殊字符转义后再显示。</p>
+        <p>localStorage 很适合课程项目中的轻量交互，但真实应用仍应由后端完成身份验证、数据校验和长期存储。</p>
+
+      </div>
+    </article>
+    <nav class="article-nav" aria-label="文章导航">
+      <a class="btn btn-ghost" href="../blog.html">返回博客列表</a>
+      <a class="btn" href="../about.html#guestbook-title">读完后留言</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="../blog.html">返回博客</a><a href="../projects.html">项目</a><a href="../about.html">联系</a></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

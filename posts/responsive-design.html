@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="响应式网页设计基础：从移动端开始思考 - StudyLog 技术博客文章。">
+  <title>响应式网页设计基础：从移动端开始思考｜StudyLog</title>
+  <script>if (window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches) document.documentElement.classList.add("custom-cursor-boot");</script><style>html.custom-cursor-boot,html.custom-cursor-boot *{cursor:none!important}</style>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="post" data-article-id="responsive-design">
+  <div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+
+  <header class="site-header">
+    <nav class="navbar container" aria-label="主导航">
+      <a class="logo" href="../index.html"><span class="logo-mark">LI</span><span>李卓斌</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link" data-nav="home" href="../index.html">首页</a>
+        <a class="nav-link" data-nav="blog" href="../blog.html">博客</a>
+        <a class="nav-link" data-nav="projects" href="../projects.html">项目</a>
+        <a class="nav-link" data-nav="about" href="../about.html">关于我</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题">亮</button>
+        <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="打开导航菜单" aria-expanded="false">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="article-shell">
+    <article>
+      <header class="article-header" data-animate>
+        <a class="btn btn-ghost" href="../blog.html">← 返回文章列表</a>
+        <h1 class="article-title">响应式网页设计基础：从移动端开始思考</h1>
+        <div class="meta-row">
+          <span>2026年5月10日</span><span>·</span><span>学习笔记</span><span>·</span><span id="readingTime">预计阅读时间</span>
+        </div>
+        <div class="meta-row" style="margin-top: 14px;"><span class="tag">响应式</span><span class="tag">移动端</span><span class="tag">用户体验</span></div>
+      </header>
+      <div class="article-body" data-animate>
+
+        <p>响应式设计的目标不是让桌面页面“缩小后还能看”，而是让不同设备都拥有合理的信息结构和交互体验。</p>
+        <h2>第一步：viewport</h2>
+        <p>移动端页面必须设置 viewport，否则浏览器会以桌面宽度模拟页面，导致文字过小、布局异常。</p>
+        <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+        <h2>布局策略</h2>
+        <p>本网站使用 <code>width: min(100% - 40px, 1120px)</code> 控制容器最大宽度。桌面端保持舒适阅读宽度，移动端则自动留出边距。</p>
+        <h2>常见检查项</h2>
+        <ul>
+          <li>正文至少 16px，行高保持 1.5 以上。</li>
+          <li>按钮和链接触控区域接近 44px。</li>
+          <li>Grid 在小屏幕切换为单列，避免横向滚动。</li>
+          <li>固定导航不要遮挡主要内容。</li>
+        </ul>
+        <p>响应式设计最终服务于可读性和可操作性，不只是媒体查询的堆叠。</p>
+
+      </div>
+    </article>
+    <nav class="article-nav" aria-label="文章导航">
+      <a class="btn btn-ghost" href="../blog.html">返回博客列表</a>
+      <a class="btn" href="../about.html#guestbook-title">读完后留言</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2026 StudyLog. Built with HTML, CSS and JavaScript.</p>
+      <div class="footer-links"><a href="../blog.html">返回博客</a><a href="../projects.html">项目</a><a href="../about.html">联系</a></div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
