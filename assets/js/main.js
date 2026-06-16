@@ -3,6 +3,7 @@ const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(sel
 
 const THEME_KEY = "tech_blog_theme";
 const GUESTBOOK_KEY = "tech_blog_guestbook";
+const SPLASH_KEY = "studylog_splash_seen";
 
 function initCustomCursor() {
   const canUseCustomCursor = window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches;
@@ -111,6 +112,43 @@ function loadFromStorage(key, fallback) {
 
 function saveToStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
+}
+
+function initSplashScreen(onDone = () => {}) {
+  const splash = $("#splashScreen");
+  const enter = $("#splashEnter");
+  if (!splash || !enter) return false;
+
+  const hideImmediately = () => {
+    splash.classList.add("is-hidden");
+    splash.setAttribute("aria-hidden", "true");
+  };
+
+  if (sessionStorage.getItem(SPLASH_KEY) === "true") {
+    hideImmediately();
+    return false;
+  }
+
+  const closeSplash = () => {
+    sessionStorage.setItem(SPLASH_KEY, "true");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      hideImmediately();
+      onDone();
+      return;
+    }
+
+    splash.classList.add("is-leaving");
+    splash.setAttribute("aria-hidden", "true");
+    window.setTimeout(() => {
+      splash.classList.add("is-hidden");
+      onDone();
+    }, 740);
+  };
+
+  enter.addEventListener("click", closeSplash);
+  enter.focus({ preventScroll: true });
+  return true;
 }
 
 function setActiveNav() {
@@ -644,5 +682,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (page === "about") initAboutPage();
   if (page === "projects") initProjectsPage();
 
-  initAnimations();
+  const splashPending = page === "home" && initSplashScreen(() => initAnimations());
+  if (!splashPending) initAnimations();
 });
