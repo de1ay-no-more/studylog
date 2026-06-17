@@ -24,6 +24,7 @@ function initCustomCursor() {
   const pointer = savedPosition || { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   const follower = { x: pointer.x, y: pointer.y };
   let isVisible = Boolean(savedPosition);
+  let animationFrame = null;
 
   const placeDot = () => {
     dot.style.transform = `translate3d(${pointer.x}px, ${pointer.y}px, 0) translate(-50%, -50%)`;
@@ -39,18 +40,30 @@ function initCustomCursor() {
     document.body.classList.add("custom-cursor-visible");
   };
 
+  const render = () => {
+    follower.x += (pointer.x - follower.x) * 0.16;
+    follower.y += (pointer.y - follower.y) * 0.16;
+    ring.style.transform = `translate3d(${follower.x}px, ${follower.y}px, 0) translate(-50%, -50%)`;
+
+    if (Math.abs(pointer.x - follower.x) > 0.2 || Math.abs(pointer.y - follower.y) > 0.2) {
+      animationFrame = window.requestAnimationFrame(render);
+    } else {
+      follower.x = pointer.x;
+      follower.y = pointer.y;
+      animationFrame = null;
+    }
+  };
+
+  const requestRender = () => {
+    if (animationFrame === null) animationFrame = window.requestAnimationFrame(render);
+  };
+
   const moveCursor = event => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
     placeDot();
     showCursor();
-  };
-
-  const render = () => {
-    follower.x += (pointer.x - follower.x) * 0.1;
-    follower.y += (pointer.y - follower.y) * 0.1;
-    ring.style.transform = `translate3d(${follower.x}px, ${follower.y}px, 0) translate(-50%, -50%)`;
-    window.requestAnimationFrame(render);
+    requestRender();
   };
 
   placeDot();
@@ -64,13 +77,14 @@ function initCustomCursor() {
     document.body.classList.add("custom-cursor-pressed");
   });
   window.addEventListener("pointerup", () => document.body.classList.remove("custom-cursor-pressed"));
-  window.addEventListener("pagehide", saveCursorPosition);
+  window.addEventListener("pagehide", () => {
+    saveCursorPosition();
+    if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
+  });
   window.addEventListener("pointerleave", () => {
     isVisible = false;
     document.body.classList.remove("custom-cursor-visible", "custom-cursor-pressed");
   });
-
-  render();
 }
 
 function formatDate(dateString) {
@@ -186,13 +200,81 @@ function setActiveNav() {
   window.requestAnimationFrame(() => moveIndicator(activeLink));
 }
 
+const prefetchedPages = new Set();
+
+function shouldPrefetchPages() {
+  if (window.location.protocol === "file:") return false;
+
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!connection) return true;
+  if (connection.saveData) return false;
+
+  const effectiveType = String(connection.effectiveType || "").toLowerCase();
+  return !effectiveType.includes("2g");
+}
+
+function prefetchInternalPage(href) {
+  if (!shouldPrefetchPages() || !href) return;
+  if (href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+
+  let targetUrl;
+  try {
+    targetUrl = new URL(href, window.location.href);
+  } catch {
+    return;
+  }
+
+  if (targetUrl.origin !== window.location.origin) return;
+  if (targetUrl.pathname === window.location.pathname && targetUrl.hash) return;
+  if (prefetchedPages.has(targetUrl.href)) return;
+
+  prefetchedPages.add(targetUrl.href);
+  const request = () => {
+    window.fetch(targetUrl.href, { credentials: "same-origin" }).catch(() => {
+      prefetchedPages.delete(targetUrl.href);
+    });
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(request, { timeout: 1200 });
+  } else {
+    window.setTimeout(request, 0);
+  }
+}
+
 function initPageTransitions() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const linkSelector = "a[href]";
+
+  const warmupLinks = scope => {
+    $$(linkSelector, scope).forEach(link => {
+      prefetchInternalPage(link.getAttribute("href"));
+    });
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(() => warmupLinks(document.body), { timeout: 1600 });
+  } else {
+    window.setTimeout(() => warmupLinks(document.body), 600);
+  }
+
+  document.addEventListener("pointerover", event => {
+    const link = event.target.closest(linkSelector);
+    if (!link || (link.target && link.target !== "_self") || link.hasAttribute("download")) return;
+    prefetchInternalPage(link.getAttribute("href"));
+  });
+
+  document.addEventListener("focusin", event => {
+    const link = event.target.closest(linkSelector);
+    if (!link) return;
+    prefetchInternalPage(link.getAttribute("href"));
+  });
 
   document.addEventListener("click", event => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-    const link = event.target.closest("a[href]");
+    const link = event.target.closest(linkSelector);
     if (!link) return;
     if (link.target && link.target !== "_self") return;
     if (link.hasAttribute("download")) return;
@@ -208,7 +290,7 @@ function initPageTransitions() {
     document.body.classList.add("page-leaving");
     window.setTimeout(() => {
       window.location.href = targetUrl.href;
-    }, 150);
+    }, 60);
   });
 }
 
