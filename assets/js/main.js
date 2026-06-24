@@ -648,8 +648,6 @@ function initProjectsPage() {
   const grid = $("#projectGrid");
   if (!grid) return;
 
-  let activeIndex = 0;
-
   const renderCard = (project, index) => {
     const meta = [project.type, project.status].filter(Boolean);
     const hasLink = Boolean(project.link && project.link !== "#");
@@ -658,95 +656,52 @@ function initProjectsPage() {
       ? `href="${escapeHTML(project.link)}"${isExternal ? " target=\"_blank\" rel=\"noopener\"" : ""}`
       : "";
     const action = hasLink
-      ? `<a class="project-action" ${linkAttrs}>查看项目 →</a>`
+      ? `<span class="project-action">查看项目 →</span>`
       : `<span class="project-action is-disabled">链接待补充</span>`;
-
-    return `
-      <article class="card project-card" data-project-index="${index}" tabindex="0" aria-label="项目：${escapeHTML(project.title)}">
-        <div class="project-cover project-cover-${escapeHTML(project.coverTone || "default")}" aria-label="${escapeHTML(project.title)} 项目封面">
-          <span>${escapeHTML(project.cover || project.title)}</span>
+    const cardInner = `
+      <div class="project-cover project-cover-${escapeHTML(project.coverTone || "default")}" aria-label="${escapeHTML(project.title)} 项目封面">
+        <span>${escapeHTML(project.cover || project.title)}</span>
+      </div>
+      <div class="card-body">
+        ${meta.length ? `<div class="project-meta">${meta.map(item => `<span class="${getProjectMetaClass(item)}">${escapeHTML(item)}</span>`).join("")}</div>` : ""}
+        <h3 class="card-title">${escapeHTML(project.title)}</h3>
+        <p class="card-text">${escapeHTML(project.description)}</p>
+        ${project.role ? `<p class="project-role"><span>负责内容</span>${escapeHTML(project.role)}</p>` : ""}
+        <div class="project-tags">
+          ${project.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}
         </div>
-        <div class="card-body">
-          ${meta.length ? `<div class="project-meta">${meta.map(item => `<span class="${getProjectMetaClass(item)}">${escapeHTML(item)}</span>`).join("")}</div>` : ""}
-          <h3 class="card-title">${escapeHTML(project.title)}</h3>
-          <p class="card-text">${escapeHTML(project.description)}</p>
-          ${project.role ? `<p class="project-role"><span>负责内容</span>${escapeHTML(project.role)}</p>` : ""}
-          <div class="project-tags">
-            ${project.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}
-          </div>
-          ${action}
-        </div>
-      </article>
+        ${action}
+      </div>
     `;
+
+    return hasLink
+      ? `<a class="card project-card project-card-link" data-project-index="${index}" aria-label="项目：${escapeHTML(project.title)}，查看项目" ${linkAttrs}>${cardInner}</a>`
+      : `<article class="card project-card" data-project-index="${index}" aria-label="项目：${escapeHTML(project.title)}">${cardInner}</article>`;
   };
 
-  grid.classList.remove("grid", "grid-3");
-  grid.classList.add("project-carousel");
-  grid.innerHTML = `
-    <button class="project-nav project-nav-prev" type="button" aria-label="查看上一个项目">←</button>
-    <div class="project-stage" role="list" aria-live="polite">
-      ${projects.map(renderCard).join("")}
-    </div>
-    <button class="project-nav project-nav-next" type="button" aria-label="查看下一个项目">→</button>
-  `;
+  grid.classList.remove("project-carousel");
+  grid.classList.add("grid", "grid-3");
+  grid.innerHTML = projects.map(renderCard).join("");
 
   const cards = $$(".project-card", grid);
-  const previous = $(".project-nav-prev", grid);
-  const next = $(".project-nav-next", grid);
-
-  const update = () => {
-    cards.forEach((card, index) => {
-      const offset = ((index - activeIndex + projects.length + 1) % projects.length) - 1;
-      card.dataset.position = String(offset);
-      card.classList.toggle("is-active", offset === 0);
-      card.setAttribute("aria-current", offset === 0 ? "true" : "false");
-      card.setAttribute("tabindex", offset === 0 ? "0" : "-1");
-    });
-  };
-
-  const goTo = index => {
-    activeIndex = (index + projects.length) % projects.length;
-    update();
-  };
-
-  previous?.addEventListener("click", () => goTo(activeIndex - 1));
-  next?.addEventListener("click", () => goTo(activeIndex + 1));
-
   const canTilt = window.matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)").matches;
 
-  cards.forEach((card, index) => {
-    card.addEventListener("click", event => {
-      if (event.target.closest("a")) return;
-      if (index !== activeIndex) goTo(index);
+  if (!canTilt) return;
+
+  cards.forEach(card => {
+    card.addEventListener("pointermove", event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty("--tilt-x", `${(-y * 5).toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${(x * 5).toFixed(2)}deg`);
     });
-    card.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        goTo(index);
-      }
+
+    card.addEventListener("pointerleave", () => {
+      card.style.setProperty("--tilt-x", "0deg");
+      card.style.setProperty("--tilt-y", "0deg");
     });
-
-    if (canTilt) {
-      card.addEventListener("pointermove", event => {
-        const rect = card.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        card.style.setProperty("--tilt-x", `${(-y * 11).toFixed(2)}deg`);
-        card.style.setProperty("--tilt-y", `${(x * 11).toFixed(2)}deg`);
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.setProperty("--tilt-x", "0deg");
-        card.style.setProperty("--tilt-y", "0deg");
-      });
-    }
   });
-
-  grid.addEventListener("keydown", event => {
-    if (event.key === "ArrowLeft") goTo(activeIndex - 1);
-    if (event.key === "ArrowRight") goTo(activeIndex + 1);
-  });
-
-  update();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
